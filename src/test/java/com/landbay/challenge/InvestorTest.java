@@ -14,12 +14,12 @@ class InvestorTest {
     }
 
     @Test
-    void getName_returnsCorrectName() {
+    void testReturnsExpectedInvestorName() {
         assertEquals("John", investor.getName());
     }
 
     @Test
-    void toString_returnsObjectInStringForm() {
+    void testReturnsExpectedInvestorObjectString() {
         assertEquals("Investor (name=John)", investor.toString());
     }
 }

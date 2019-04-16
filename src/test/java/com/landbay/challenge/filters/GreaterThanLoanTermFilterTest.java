@@ -3,6 +3,7 @@ package com.landbay.challenge.filters;
 import com.landbay.challenge.InvestmentRequest;
 import com.landbay.challenge.Loan;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -31,15 +32,44 @@ class GreaterThanLoanTermFilterTest {
         this.greaterThanLoanTermFilter = new GreaterThanLoanTermFilter();
     }
 
-    @Test
-    void test1() {
-        when(this.loan.getTerm()).thenReturn(10);
-        when(this.investmentRequest.getTerm()).thenReturn(12);
+    @Nested
+    class TestMethod {
+        @Test
+        void notFilterInvestmentRequestWithGreaterTerm() {
+            when(loan.getTerm()).thenReturn(10);
+            when(investmentRequest.getTerm()).thenReturn(12);
 
-        List<InvestmentRequest> actualInvestmentRequests = Stream.of(this.investmentRequest)
-                .filter(this.greaterThanLoanTermFilter.test(loan))
-                .collect(Collectors.toList());
+            List<InvestmentRequest> actualInvestmentRequests = Stream.of(investmentRequest)
+                    .filter(greaterThanLoanTermFilter.test(loan))
+                    .collect(Collectors.toList());
 
-        assertThat(actualInvestmentRequests).isNotEmpty();
+            assertThat(actualInvestmentRequests).isNotEmpty();
+        }
+
+        @Test
+        void filterInvestmentRequestWithLesserTerm() {
+            when(loan.getTerm()).thenReturn(10);
+            when(investmentRequest.getTerm()).thenReturn(9);
+
+            List<InvestmentRequest> actualInvestmentRequests = Stream.of(investmentRequest)
+                    .filter(greaterThanLoanTermFilter.test(loan))
+                    .collect(Collectors.toList());
+
+            assertThat(actualInvestmentRequests).isEmpty();
+        }
+
+        @Test
+        void filterInvestmentRequestWithEqualTerm() {
+            when(loan.getTerm()).thenReturn(10);
+            when(investmentRequest.getTerm()).thenReturn(10);
+
+            List<InvestmentRequest> actualInvestmentRequests = Stream.of(investmentRequest)
+                    .filter(greaterThanLoanTermFilter.test(loan))
+                    .collect(Collectors.toList());
+
+            assertThat(actualInvestmentRequests).isEmpty();
+        }
     }
+
+
 }
