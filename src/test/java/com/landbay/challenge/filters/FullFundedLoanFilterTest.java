@@ -4,6 +4,7 @@ import com.landbay.challenge.InvestmentRequest;
 import com.landbay.challenge.Loan;
 import com.landbay.challenge.enums.Funded;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -31,14 +32,41 @@ class FullFundedLoanFilterTest {
         this.fullFundedLoanFilter = new FullFundedLoanFilter();
     }
 
-    @Test
-    void test1() {
-        when(loan.getFunded()).thenReturn(Funded.NOT);
+    @Nested
+    class TestMethod {
+        @Test
+        void filterInvestmentRequestWhenLoanNotFunded() {
+            when(loan.getFunded()).thenReturn(Funded.NOT);
 
-        List<InvestmentRequest> actualInvestmentRequests = Stream.of(this.investmentRequest)
-                .filter(this.fullFundedLoanFilter.test(loan))
-                .collect(Collectors.toList());
+            List<InvestmentRequest> actualInvestmentRequests = Stream.of(investmentRequest)
+                    .filter(fullFundedLoanFilter.test(loan))
+                    .collect(Collectors.toList());
 
-        assertThat(actualInvestmentRequests).isNotEmpty();
+            assertThat(actualInvestmentRequests).isNotEmpty();
+        }
+
+        @Test
+        void notFilterInvestmentRequestWhenLoanFullyFunded() {
+            when(loan.getFunded()).thenReturn(Funded.FULL);
+
+            List<InvestmentRequest> actualInvestmentRequests = Stream.of(investmentRequest)
+                    .filter(fullFundedLoanFilter.test(loan))
+                    .collect(Collectors.toList());
+
+            assertThat(actualInvestmentRequests).isEmpty();
+        }
+
+        @Test
+        void filterInvestmentRequestWhenLoanPartiallyFunded() {
+            when(loan.getFunded()).thenReturn(Funded.PARTIAL);
+
+            List<InvestmentRequest> actualInvestmentRequests = Stream.of(investmentRequest)
+                    .filter(fullFundedLoanFilter.test(loan))
+                    .collect(Collectors.toList());
+
+            assertThat(actualInvestmentRequests).isNotEmpty();
+        }
     }
+
+
 }

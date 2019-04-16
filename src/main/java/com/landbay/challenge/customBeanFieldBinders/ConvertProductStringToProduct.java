@@ -4,12 +4,11 @@ import com.landbay.challenge.enums.ProductType;
 import com.landbay.challenge.products.FixedProduct;
 import com.landbay.challenge.products.TrackerProduct;
 import com.opencsv.bean.AbstractBeanField;
-import com.opencsv.exceptions.CsvConstraintViolationException;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 
-public class ConvertLoanProduct extends AbstractBeanField<String> {
+public class ConvertProductStringToProduct extends AbstractBeanField<String> {
     @Override
-    protected Object convert(String s) throws CsvDataTypeMismatchException, CsvConstraintViolationException {
+    protected Object convert(String s) throws CsvDataTypeMismatchException {
         try {
             ProductType productType = ProductType.valueOf(s);
 

@@ -3,9 +3,9 @@ package com.landbay.challenge.filters;
 import com.landbay.challenge.InvestmentRequest;
 import com.landbay.challenge.Loan;
 import com.landbay.challenge.enums.ProductType;
-import com.landbay.challenge.products.FixedProduct;
 import com.landbay.challenge.products.Product;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -39,17 +39,36 @@ class EqualProductTypeFilterTest {
         this.equalProductTypeFilter = new EqualProductTypeFilter();
     }
 
-    @Test
-    void test1() {
-        when(this.loanProduct.getType()).thenReturn(ProductType.FIXED);
-        when(this.investmentRequest.getProductType()).thenReturn(ProductType.FIXED);
+    @Nested
+    class TestMethod {
+        @Test
+        void filterInvestmentRequestWhenProductTypesAreEqual() {
+            when(loanProduct.getType()).thenReturn(ProductType.FIXED);
+            when(investmentRequest.getProductType()).thenReturn(ProductType.FIXED);
 
-        List<InvestmentRequest> actualInvestmentRequests = Stream.of(this.investmentRequest)
-                .filter(this.equalProductTypeFilter.test(loan))
-                .collect(Collectors.toList());
+            List<InvestmentRequest> actualInvestmentRequests = Stream.of(investmentRequest)
+                    .filter(equalProductTypeFilter.test(loan))
+                    .collect(Collectors.toList());
 
 
-        assertThat(actualInvestmentRequests).isNotEmpty();
+            assertThat(actualInvestmentRequests).isNotEmpty();
 
+        }
+
+        @Test
+        void notFilterInvestmentRequestWhenProductTypesAreNotEqual() {
+            when(loanProduct.getType()).thenReturn(ProductType.TRACKER);
+            when(investmentRequest.getProductType()).thenReturn(ProductType.FIXED);
+
+            List<InvestmentRequest> actualInvestmentRequests = Stream.of(investmentRequest)
+                    .filter(equalProductTypeFilter.test(loan))
+                    .collect(Collectors.toList());
+
+
+            assertThat(actualInvestmentRequests).isEmpty();
+
+        }
     }
+
+
 }

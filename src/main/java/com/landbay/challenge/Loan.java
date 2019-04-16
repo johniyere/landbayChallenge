@@ -1,6 +1,6 @@
 package com.landbay.challenge;
 
-import com.landbay.challenge.customBeanFieldBinders.ConvertLoanProduct;
+import com.landbay.challenge.customBeanFieldBinders.ConvertProductStringToProduct;
 import com.landbay.challenge.enums.Funded;
 import com.landbay.challenge.products.Product;
 import com.opencsv.bean.CsvBindByName;
@@ -27,7 +27,7 @@ public class Loan {
     private Date completedDate;
 
 
-    @CsvCustomBindByName(converter = ConvertLoanProduct.class)
+    @CsvCustomBindByName(converter = ConvertProductStringToProduct.class)
     private Product product;
 
     private int amountInvested = 0;

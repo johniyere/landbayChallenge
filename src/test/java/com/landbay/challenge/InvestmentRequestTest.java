@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class InvestmentRequestTest {
 
-    InvestmentRequest investmentRequest;
+    private InvestmentRequest investmentRequest;
 
     @BeforeEach
     void setUp() {
@@ -16,7 +16,7 @@ class InvestmentRequestTest {
     }
 
     @Test
-    void testDecreaseInvestmentAmountBy10() {
+    void decreaseInvestmentAmountBy10() {
         investmentRequest.setInvestmentAmount(100);
         investmentRequest.decreaseInvestmentAmount(10);
 

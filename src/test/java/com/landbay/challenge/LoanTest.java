@@ -9,11 +9,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class LoanTest {
@@ -24,7 +24,7 @@ class LoanTest {
     @Mock
     Investment investment2;
 
-    Loan loan;
+    private Loan loan;
 
     @BeforeEach
     void setUp() {
@@ -39,7 +39,7 @@ class LoanTest {
 
             loan.setProduct(new TrackerProduct());
             loan.setTerm(10);
-            loan.setCompletedDate(new GregorianCalendar(2015, 1, 1).getTime());
+            loan.setCompletedDate(new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime());
             loan.setLoanId(1);
             loan.setLoanAmount(1000);
 
@@ -51,12 +51,12 @@ class LoanTest {
         }
 
         @Test
-        void loanIsFullyFundedIfLoanAmountInvested() {
+        void loanIsFullyFundedIfExactLoanAmountInvested() {
             when(investment.getAmountInvested()).thenReturn(1000);
 
             loan.setProduct(new TrackerProduct());
             loan.setTerm(10);
-            loan.setCompletedDate(new GregorianCalendar(2015, 1, 1).getTime());
+            loan.setCompletedDate(new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime());
             loan.setLoanId(1);
             loan.setLoanAmount(1000);
 
