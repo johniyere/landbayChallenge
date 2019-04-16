@@ -8,10 +8,12 @@ import com.landbay.challenge.readers.LoanReader;
 import java.util.List;
 
 public class Main {
-    private static String LOAN_CSV_FILE = "src/main/resources/loans-data.csv";
-    private static String INVESTMENT_REQUEST_CSV_FILE = "src/main/resources/investmentRequests-data.csv";
+
 
     public static void main(String[] args) {
+
+        final String LOAN_CSV_FILE = "src/main/resources/loans-data.csv";
+        final String INVESTMENT_REQUEST_CSV_FILE = "src/main/resources/investmentRequests-data.csv";
 
         try {
             LoanReader loanReader = new LoanReader(LOAN_CSV_FILE);

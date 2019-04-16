@@ -4,7 +4,7 @@ import com.landbay.challenge.Investor;
 import com.opencsv.bean.AbstractBeanField;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 
-public class ConvestNameToInvestor extends AbstractBeanField<String> {
+public class ConvertNameToInvestor extends AbstractBeanField<String> {
     @Override
     protected Object convert(String s) throws CsvDataTypeMismatchException {
         try {

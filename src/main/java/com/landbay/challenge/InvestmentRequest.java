@@ -1,14 +1,14 @@
 package com.landbay.challenge;
 
+import com.landbay.challenge.customBeanFieldBinders.ConvertNameToInvestor;
 import com.landbay.challenge.customBeanFieldBinders.ConvertProductStringToProductType;
-import com.landbay.challenge.customBeanFieldBinders.ConvestNameToInvestor;
 import com.landbay.challenge.enums.ProductType;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
 
 public class InvestmentRequest {
 
-    @CsvCustomBindByName(converter = ConvestNameToInvestor.class)
+    @CsvCustomBindByName(converter = ConvertNameToInvestor.class)
     private Investor investor;
 
     @CsvBindByName
